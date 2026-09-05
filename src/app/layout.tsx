@@ -14,6 +14,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "SarkariPortal | Latest Jobs, Results & Yojana Updates",
   description: "Independent information portal for the latest Sarkari Jobs, Results, Admit Cards, Yojana and Government Updates.",
