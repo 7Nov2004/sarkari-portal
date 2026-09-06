@@ -181,6 +181,16 @@ export default async function PostDetail({
           {/* Main Content */}
           <div className="lg:col-span-3">
             <article className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+              {/* Featured HD 1200px Banner (Google Discover & Social) */}
+              <div className="relative w-full aspect-[1200/630] overflow-hidden bg-slate-950 border-b border-gray-200">
+                <img
+                  src={`/post/${post.slug}/opengraph-image`}
+                  alt={post.title}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+              </div>
+
               {/* Header */}
               <div className={`${getCategoryColor(post.category)} text-white p-6 md:p-8`}>
                 <div className="inline-block bg-white/20 px-3 py-1 rounded-full text-xs font-bold tracking-wider mb-4 uppercase">
