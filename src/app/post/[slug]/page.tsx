@@ -205,8 +205,33 @@ export default async function PostDetail({
               {/* Content Body */}
               <div className="p-6 md:p-8">
                 {/* Short Intro */}
-                <div className="text-lg text-gray-700 font-medium mb-8 p-4 bg-gray-50 border-l-4 border-blue-500 rounded-r-lg leading-relaxed">
+                <div className="text-lg text-gray-700 font-medium mb-6 p-4 bg-gray-50 border-l-4 border-blue-500 rounded-r-lg leading-relaxed">
                   {post.shortDescription}
+                </div>
+
+                {/* Viral Share Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 mb-8">
+                  <div className="flex items-center gap-2 text-green-900 font-bold text-sm">
+                    <span>📲 दोस्तों व ग्रुप्स में शेयर करें:</span>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <a
+                      href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`📢 *${post.title}*\n\nपूरी जानकारी, योग्यता और ऑफिशियल लिंक यहाँ देखें 👇\nhttps://govportal.online/post/${post.slug}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs md:text-sm px-4 py-2 rounded-lg flex items-center gap-1.5 transition-all shadow-sm hover:scale-105"
+                    >
+                      WhatsApp पर भेजें
+                    </a>
+                    <a
+                      href={`https://t.me/share/url?url=${encodeURIComponent(`https://govportal.online/post/${post.slug}`)}&text=${encodeURIComponent(post.title)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs md:text-sm px-4 py-2 rounded-lg flex items-center gap-1.5 transition-all shadow-sm hover:scale-105"
+                    >
+                      Telegram
+                    </a>
+                  </div>
                 </div>
 
                 {/* Main Content */}
