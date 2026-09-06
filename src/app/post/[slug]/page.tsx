@@ -2,7 +2,16 @@ import { prisma } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { Calendar, ChevronRight, ExternalLink, AlertTriangle, FileText, CheckCircle2 } from 'lucide-react';
+import {
+  Calendar,
+  ChevronRight,
+  ExternalLink,
+  AlertTriangle,
+  FileText,
+  CheckCircle2,
+  ListOrdered,
+  HelpCircle,
+} from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -95,12 +104,35 @@ export default async function PostDetail({
     }
   }
 
-  // JSON-LD Structured Data for Google Rich Results
+  // Structured FAQs for this post
+  const defaultFaqs = [
+    {
+      q: `${post.title} के लिए आधिकारिक वेबसाइट कौन सी है?`,
+      a: post.officialSourceUrl
+        ? `इसकी आधिकारिक वेबसाइट ${post.officialSourceUrl} है, जहाँ से आप सीधे सत्यापन या आवेदन कर सकते हैं।`
+        : 'इसके लिए आधिकारिक वेबसाइट भारत सरकार / राज्य सरकार के संबंधित पोर्टल पर उपलब्ध है।',
+    },
+    {
+      q: 'इसके लिए कौन-कौन से आवश्यक दस्तावेज चाहिए?',
+      a: post.requiredDocuments
+        ? `मुख्य दस्तावेज: ${post.requiredDocuments}।`
+        : 'आधार कार्ड, पहचान पत्र, निवास प्रमाण पत्र और पासपोर्ट साइज फोटो की आवश्यकता होती है।',
+    },
+    {
+      q: 'आवेदन या स्टेटस चेक करने की क्या प्रक्रिया है?',
+      a: post.applicationProcess
+        ? post.applicationProcess
+        : 'आधिकारिक पोर्टल पर जाकर रजिस्ट्रेशन नंबर अथवा आधार नंबर दर्ज करके ऑनलाइन आवेदन या स्टेटस चेक किया जा सकता है।',
+    },
+  ];
+
+  // JSON-LD Structured Data for Google Rich Results (Article)
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
     description: post.shortDescription,
+    image: `https://govportal.online/post/${post.slug}/opengraph-image`,
     datePublished: (post.publishedAt || post.createdAt).toISOString(),
     dateModified: post.updatedAt.toISOString(),
     author: {
@@ -113,7 +145,7 @@ export default async function PostDetail({
       name: 'GovPortal.online',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://govportal.online/favicon.ico',
+        url: 'https://govportal.online/icon.svg',
       },
     },
     mainEntityOfPage: {
@@ -122,6 +154,7 @@ export default async function PostDetail({
     },
   };
 
+  // Breadcrumbs Schema
   const breadcrumbLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -147,6 +180,20 @@ export default async function PostDetail({
     ],
   };
 
+  // FAQ Schema for Google Accordion Rich Snippet in Search Results
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: defaultFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <>
       <script
@@ -156,6 +203,10 @@ export default async function PostDetail({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
 
       <div className="container mx-auto px-4 py-8">
@@ -244,8 +295,54 @@ export default async function PostDetail({
                   </div>
                 </div>
 
+                {/* Table of Contents (विषय सूची) */}
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-8">
+                  <div className="flex items-center gap-2 text-slate-800 font-bold mb-3 text-base">
+                    <ListOrdered size={20} className="text-blue-600" />
+                    <span>विषय सूची (Table of Contents)</span>
+                  </div>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-blue-700 font-medium">
+                    <li>
+                      <a href="#about-section" className="hover:underline flex items-center gap-1.5">
+                        👉 संपूर्ण विवरण (About Update)
+                      </a>
+                    </li>
+                    {post.importantDates && (
+                      <li>
+                        <a href="#important-dates" className="hover:underline flex items-center gap-1.5">
+                          👉 महत्वपूर्ण तिथियां (Dates)
+                        </a>
+                      </li>
+                    )}
+                    {post.eligibility && (
+                      <li>
+                        <a href="#eligibility-section" className="hover:underline flex items-center gap-1.5">
+                          👉 पात्रता व नियम (Eligibility)
+                        </a>
+                      </li>
+                    )}
+                    {(post.applicationProcess || post.requiredDocuments) && (
+                      <li>
+                        <a href="#apply-section" className="hover:underline flex items-center gap-1.5">
+                          👉 आवेदन प्रक्रिया व दस्तावेज
+                        </a>
+                      </li>
+                    )}
+                    <li>
+                      <a href="#official-links" className="hover:underline flex items-center gap-1.5">
+                        👉 महत्वपूर्ण लिंक (Official Link)
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#faq-section" className="hover:underline flex items-center gap-1.5">
+                        👉 अक्सर पूछे जाने वाले सवाल (FAQ)
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
                 {/* Main Content */}
-                <div className="prose max-w-none text-gray-800 mb-10 leading-relaxed">
+                <div id="about-section" className="prose max-w-none text-gray-800 mb-10 leading-relaxed scroll-mt-20">
                   <h2 className="text-xl font-bold text-gray-900 border-b pb-2 mb-4">
                     संपूर्ण विवरण / About this Update
                   </h2>
@@ -257,7 +354,7 @@ export default async function PostDetail({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
                   {/* Important Dates */}
                   {post.importantDates && (
-                    <div className="bg-orange-50 rounded-xl p-6 border border-orange-100">
+                    <div id="important-dates" className="bg-orange-50 rounded-xl p-6 border border-orange-100 scroll-mt-20">
                       <h3 className="text-lg font-bold text-orange-800 mb-4 flex items-center gap-2">
                         <Calendar size={20} /> महत्वपूर्ण तिथियां (Important Dates)
                       </h3>
@@ -285,7 +382,7 @@ export default async function PostDetail({
 
                   {/* Eligibility */}
                   {post.eligibility && (
-                    <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
+                    <div id="eligibility-section" className="bg-blue-50 rounded-xl p-6 border border-blue-100 scroll-mt-20">
                       <h3 className="text-lg font-bold text-blue-800 mb-4 flex items-center gap-2">
                         <CheckCircle2 size={20} /> पात्रता एवं योग्यता (Eligibility)
                       </h3>
@@ -298,7 +395,7 @@ export default async function PostDetail({
 
                 {/* Application Process & Documents */}
                 {(post.applicationProcess || post.requiredDocuments) && (
-                  <div className="mb-10">
+                  <div id="apply-section" className="mb-10 scroll-mt-20">
                     <h3 className="text-xl font-bold text-gray-900 border-b pb-2 mb-6">
                       आवेदन प्रक्रिया एवं दस्तावेज (How to Apply)
                     </h3>
@@ -327,8 +424,8 @@ export default async function PostDetail({
                   </div>
                 )}
 
-                {/* Important Links */}
-                <div className="bg-gray-100 rounded-xl p-6 md:p-8 mt-12 border border-gray-200">
+                {/* Official Links */}
+                <div id="official-links" className="bg-gray-100 rounded-xl p-6 md:p-8 mt-10 border border-gray-200 scroll-mt-20">
                   <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
                     महत्वपूर्ण लिंक (Official Important Links)
                   </h3>
@@ -364,16 +461,36 @@ export default async function PostDetail({
                       </a>
                     )}
                   </div>
+                </div>
 
-                  <div className="mt-6 flex items-start gap-3 text-sm text-gray-600 bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                    <AlertTriangle className="text-yellow-600 flex-shrink-0" size={20} />
-                    <p>
-                      <strong>अस्वीकरण (Disclaimer):</strong> यह पोर्टल केवल जन-सूचना और
-                      मार्गदर्शन हेतु है। यह किसी भी सरकारी विभाग का आधिकारिक पोर्टल नहीं है।
-                      आवेदन करने या निर्णय लेने से पूर्व हमेशा आधिकारिक स्रोत पर दी गई जानकारी से
-                      मिलान करें।
-                    </p>
+                {/* Interactive FAQ Section */}
+                <div id="faq-section" className="mt-10 bg-slate-50 rounded-xl border border-slate-200 p-6 scroll-mt-20">
+                  <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b border-slate-200 pb-3">
+                    <HelpCircle className="text-blue-600" size={22} /> अक्सर पूछे जाने वाले सवाल (FAQ)
+                  </h3>
+                  <div className="space-y-4">
+                    {defaultFaqs.map((faq, idx) => (
+                      <div key={idx} className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
+                        <h4 className="font-bold text-gray-900 mb-1.5 text-base flex items-start gap-2">
+                          <span className="text-blue-600 font-extrabold">Q.</span> {faq.q}
+                        </h4>
+                        <p className="text-gray-700 text-sm pl-6 leading-relaxed">
+                          {faq.a}
+                        </p>
+                      </div>
+                    ))}
                   </div>
+                </div>
+
+                {/* Disclaimer */}
+                <div className="mt-8 flex items-start gap-3 text-sm text-gray-600 bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                  <AlertTriangle className="text-yellow-600 flex-shrink-0" size={20} />
+                  <p>
+                    <strong>अस्वीकरण (Disclaimer):</strong> यह पोर्टल केवल जन-सूचना और
+                    मार्गदर्शन हेतु है। यह किसी भी सरकारी विभाग का आधिकारिक पोर्टल नहीं है।
+                    आवेदन करने या निर्णय लेने से पूर्व हमेशा आधिकारिक स्रोत पर दी गई जानकारी से
+                    मिलान करें।
+                  </p>
                 </div>
               </div>
             </article>

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BreakingTicker from "@/components/BreakingTicker";
+import FloatingSocialWidget from "@/components/FloatingSocialWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,6 +85,14 @@ export const metadata: Metadata = {
   verification: {
     google: "kcH6vjTOG9gKvJ2sltk700ZlJVOlRgbwE4ekgVjM-v0",
   },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -94,7 +104,9 @@ export default function RootLayout({
     <html lang="hi" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
         <Header />
+        <BreakingTicker />
         <main className="flex-grow">{children}</main>
+        <FloatingSocialWidget />
         <Footer />
       </body>
     </html>
