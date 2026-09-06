@@ -233,13 +233,26 @@ export default async function PostDetail({
           <div className="lg:col-span-3">
             <article className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
               {/* Featured HD 1200px Banner (Google Discover & Social) */}
-              <div className="relative w-full aspect-[1200/630] overflow-hidden bg-slate-950 border-b border-gray-200">
-                <img
-                  src={`/post/${post.slug}/opengraph-image`}
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                  loading="eager"
-                />
+              <div className="relative w-full aspect-[1200/630] overflow-hidden bg-slate-950 border-b border-gray-200 group">
+                <a
+                  href={post.officialSourceUrl || '#official-links'}
+                  target={post.officialSourceUrl ? '_blank' : '_self'}
+                  rel="nofollow noopener noreferrer"
+                  className="block w-full h-full relative cursor-pointer"
+                  title="क्लिक करें: आधिकारिक वेबसाइट / आवेदन लिंक पर जाएँ"
+                >
+                  <img
+                    src={`/post/${post.slug}/opengraph-image`}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-300"
+                    loading="eager"
+                  />
+                  {/* Real Clickable Interactive Button on Poster */}
+                  <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-6 bg-yellow-400 hover:bg-yellow-300 active:scale-95 text-slate-950 font-black text-xs sm:text-base px-4 sm:px-6 py-2 sm:py-3 rounded-xl shadow-2xl flex items-center gap-2 border-2 border-slate-950/20 transition-all cursor-pointer animate-pulse">
+                    <span>Check Now (यहाँ क्लिक करें)</span>
+                    <ExternalLink size={18} className="text-slate-950" />
+                  </div>
+                </a>
               </div>
 
               {/* Header */}
