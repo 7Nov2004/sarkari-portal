@@ -103,6 +103,41 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="hi" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://govportal.online/#website",
+                  "url": "https://govportal.online",
+                  "name": "Sarkari Portal",
+                  "description": "Latest Sarkari Jobs, Results, Admit Card, Yojana 2026",
+                  "inLanguage": "hi-IN",
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://govportal.online/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                  }
+                },
+                {
+                  "@type": "Organization",
+                  "@id": "https://govportal.online/#organization",
+                  "name": "GovPortal",
+                  "url": "https://govportal.online",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://govportal.online/icon.svg"
+                  }
+                }
+              ]
+            })
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
         <Header />
         <BreakingTicker />
