@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { prisma } from '@/lib/db';
 import { Calendar, Building, GraduationCap, ChevronRight, Briefcase, FileText, FileBadge, Newspaper, FileKey } from 'lucide-react';
 import SearchBar from '@/components/SearchBar';
+import QuickLinksGrid from '@/components/QuickLinksGrid';
 
 export default async function Home() {
   const jobs = await prisma.post.findMany({ where: { category: 'JOB', published: true }, orderBy: { publishedAt: 'desc' }, take: 5 });
@@ -44,6 +45,11 @@ export default async function Home() {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Quick Links Grid (Sarkari Result style) */}
+      <section className="container mx-auto px-4">
+        <QuickLinksGrid />
       </section>
 
       {/* Main Content Sections */}
