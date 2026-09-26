@@ -1,0 +1,3 @@
+﻿# Ads.txt file for govportal.online
+# Please replace this text with the code provided by Google AdSense.
+# Example: google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
