@@ -1,4 +1,4 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 import { ArrowDownCircle } from 'lucide-react';
 
 export default function SarkariClassicHero() {
@@ -16,11 +16,19 @@ export default function SarkariClassicHero() {
   ];
 
   const liveLinks = [
-    "MPESB Teacher counselling", "Bihar STET 2026 Online", "ICF Apprentice 1010 Posts", 
-    "RCF Kapurthala Vacancy 734 Posts", "BSEB Class 10th & 12th Registration Card 2027",
-    "SBI Clerk Backlog", "Railway GDCE Vacancy 2026", "RSSB JE Recruitment (874 Posts)",
-    "UPSSSC Veterinary Pharmacist Vacancy", "MDU B.Ed / M.Ed Online Form 2026",
-    "MPESB Group 2 Sub Group 4", "UPSSSC Livestock Extension Officer", "BPSC TRE 4 Vacancy 32388 Posts"
+    { title: "MPESB Teacher counselling", slug: "mpesb-teacher-counselling" },
+    { title: "Bihar STET 2026 Online", slug: "bihar-stet-2026-online" },
+    { title: "ICF Apprentice 1010 Posts", slug: "icf-apprentice-1010-posts" },
+    { title: "RCF Kapurthala Vacancy 734 Posts", slug: "rcf-kapurthala-vacancy-734-posts" },
+    { title: "BSEB Class 10th & 12th Registration Card 2027", slug: "bseb-class-10th-12th-registration-card-2027" },
+    { title: "SBI Clerk Backlog", slug: "sbi-clerk-backlog" },
+    { title: "Railway GDCE Vacancy 2026", slug: "railway-gdce-vacancy-2026" },
+    { title: "RSSB JE Recruitment (874 Posts)", slug: "rssb-je-recruitment-874-posts" },
+    { title: "UPSSSC Veterinary Pharmacist Vacancy", slug: "upsssc-veterinary-pharmacist-vacancy" },
+    { title: "MDU B.Ed / M.Ed Online Form 2026", slug: "mdu-bed-med-online-form-2026" },
+    { title: "MPESB Group 2 Sub Group 4", slug: "mpesb-group-2-sub-group-4" },
+    { title: "UPSSSC Livestock Extension Officer", slug: "upsssc-livestock-extension-officer" },
+    { title: "BPSC TRE 4 Vacancy 32388 Posts", slug: "bpsc-tre-4-vacancy-2026-apply-online" }
   ];
 
   const colorBlocks = [
@@ -68,18 +76,18 @@ export default function SarkariClassicHero() {
           <div className="w-2 h-2 bg-white rounded-full"></div> LIVE NOW
         </div>
         <div className="text-center text-[#0056b3] text-[15px] leading-relaxed max-w-5xl font-medium">
-          {liveLinks.map((link, idx) => (
+          {liveLinks.map((item, idx) => (
             <span key={idx}>
-              <Link href={`/search?q=${encodeURIComponent(link)}`} className="hover:underline hover:text-red-600">
-                {link}
+              <Link href={`/post/${item.slug}`} className="hover:underline hover:text-red-600">
+                {item.title}
               </Link>
               {idx < liveLinks.length - 1 && <span className="text-gray-400 mx-2">|</span>}
             </span>
           ))}
         </div>
-        <div className="mt-4 text-red-600 font-bold text-lg text-center hover:underline cursor-pointer">
+        <Link href="/post/rrb-junior-engineer-je-cbt-ii-result-2026" className="mt-4 text-red-600 font-bold text-lg text-center hover:underline cursor-pointer">
           RRB Junior Engineer JE CBT II Result 2026
-        </div>
+        </Link>
       </div>
 
       {/* Colored Hero Blocks */}
