@@ -137,6 +137,8 @@ export default function RootLayout({
             })
           }}
         />
+        <meta name="google-adsense-account" content="ca-pub-3255404615799871" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3255404615799871" crossOrigin="anonymous"></script>
       </head>
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
         <Header />
