@@ -3,8 +3,8 @@ import { ArrowDownCircle } from 'lucide-react';
 
 export default function SarkariClassicHero() {
   const topPills = [
-    { name: "State Wise Job", link: "/search?q=State+Wise" },
-    { name: "Qualification Wise", link: "/search?q=Qualification" },
+    { name: "State Wise Job", link: "/state-wise-jobs" },
+    { name: "Qualification Wise", link: "/state-wise-jobs" },
     { name: "सरकारी योजना", link: "/category/YOJANA" },
     { name: "सरकारी काम", link: "/category/SARKARI_KAAM" },
   ];
