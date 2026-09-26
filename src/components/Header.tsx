@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Search } from 'lucide-react';
 import SearchBar from './SearchBar';
 
@@ -7,8 +8,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-blue-700 text-white shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link href="/" className="font-bold text-2xl tracking-tight">
-            Sarkari<span className="text-yellow-400">Portal</span>
+          <Link href="/" className="flex items-center gap-2 font-bold text-2xl tracking-tight">
+            <Image src="/icon.svg" alt="Sarkari Portal Logo" width={32} height={32} className="rounded-full" />
+            <span>Sarkari<span className="text-yellow-400">Portal</span></span>
           </Link>
           <nav className="hidden md:flex gap-4 text-sm font-medium">
             <Link href="/" className="hover:text-yellow-400 transition-colors">Home</Link>
