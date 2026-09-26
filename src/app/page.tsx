@@ -3,6 +3,7 @@ import { prisma } from '@/lib/db';
 import { Calendar, Building, GraduationCap, ChevronRight, Briefcase, FileText, FileBadge, Newspaper, FileKey } from 'lucide-react';
 import SearchBar from '@/components/SearchBar';
 import QuickLinksGrid from '@/components/QuickLinksGrid';
+import SarkariClassicHero from '@/components/SarkariClassicHero';
 
 export default async function Home() {
   const jobs = await prisma.post.findMany({ where: { category: 'JOB', published: true }, orderBy: { publishedAt: 'desc' }, take: 5 });
@@ -13,39 +14,8 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col gap-8 pb-12">
-      {/* Hero Section */}
-      <section className="bg-blue-700 text-white py-16 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">Latest Sarkari Jobs, Results & Yojana Updates</h1>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Your independent information portal providing the fastest updates and official links for government jobs, exams, and schemes.
-          </p>
-          <div className="max-w-2xl mx-auto bg-white p-2 rounded-full shadow-lg flex">
-            <SearchBar variant="hero" className="flex-grow flex items-center w-full" />
-          </div>
-        </div>
-      </section>
-
-      {/* Category Shortcuts */}
-      <section className="container mx-auto px-4 -mt-8 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {[
-            { name: 'Latest Jobs', icon: Briefcase, color: 'bg-blue-500', link: '/category/JOB' },
-            { name: 'Results', icon: FileBadge, color: 'bg-green-500', link: '/category/RESULT' },
-            { name: 'Admit Cards', icon: FileText, color: 'bg-purple-500', link: '/category/ADMIT_CARD' },
-            { name: 'Yojana', icon: Building, color: 'bg-orange-500', link: '/category/YOJANA' },
-            { name: 'Scholarships', icon: GraduationCap, color: 'bg-pink-500', link: '/category/SCHOLARSHIP' },
-            { name: 'Sarkari Kaam', icon: Newspaper, color: 'bg-red-500', link: '/category/SARKARI_KAAM' },
-          ].map((cat, idx) => (
-            <Link key={idx} href={cat.link} className="bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-center gap-2 hover:shadow-lg transition-shadow border border-gray-100 group">
-              <div className={`${cat.color} text-white p-3 rounded-full group-hover:scale-110 transition-transform`}>
-                <cat.icon size={24} />
-              </div>
-              <span className="font-semibold text-gray-800 text-sm text-center">{cat.name}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* Sarkari Classic Hero Section */}
+      <SarkariClassicHero />
 
       {/* Quick Links Grid (Sarkari Result style) */}
       <section className="container mx-auto px-4">
