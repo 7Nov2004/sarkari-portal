@@ -10,16 +10,16 @@ export default function SarkariClassicHero() {
   ];
 
   const toolPills = [
-    { name: "Signature Resizer", url: "https://www.sarkariresult.tools/image-resizer/" },
-    { name: "Image Resizer", url: "https://imageresizer.com/" },
+    { name: "Signature Resizer", url: "/tools/signature-resizer" },
+    { name: "Image Resizer", url: "/tools/image-resizer" },
     { name: "Image to PDF", url: "https://www.ilovepdf.com/jpg_to_pdf" },
-    { name: "Add Name & Date", url: "https://www.sarkariresult.tools/name-and-date-on-photo/" },
-    { name: "Photo Sign Joiner", url: "https://www.sarkariresult.tools/photo-and-signature-joiner/" },
-    { name: "Age Calculator", url: "https://www.calculator.net/age-calculator.html" },
-    { name: "PNG to JPG to Webp", url: "https://www.iloveimg.com/convert-to-jpg" },
-    { name: "20kb Photo", url: "https://image.11zon.com/en/compress-image/compress-image-to-20kb.php" },
-    { name: "50kb Photo", url: "https://image.11zon.com/en/compress-image/compress-image-to-50kb.php" },
-    { name: "Photo in KB", url: "https://image.11zon.com/en/compress-image/" }
+    { name: "Add Name & Date", url: "/tools/add-name-date" },
+    { name: "Photo Sign Joiner", url: "/tools/photo-sign-joiner" },
+    { name: "Age Calculator", url: "/tools/age-calculator" },
+    { name: "PNG to JPG to Webp", url: "/tools/format-converter" },
+    { name: "20kb Photo", url: "/tools/compressor?target=20" },
+    { name: "50kb Photo", url: "/tools/compressor?target=50" },
+    { name: "Photo in KB", url: "/tools/compressor" }
   ];
 
   const liveLinks = [
@@ -70,11 +70,18 @@ export default function SarkariClassicHero() {
 
       {/* Teal Tool Pills */}
       <div className="flex flex-wrap justify-center gap-2 mb-6 w-full">
-        {toolPills.map((tool, idx) => (
-          <a href={tool.url} target="_blank" rel="noopener noreferrer" key={idx} className="bg-[#17a2b8] hover:bg-[#138496] text-white text-[13px] px-3 py-1 rounded-full shadow-sm transition-colors">
-            {tool.name}
-          </a>
-        ))}
+        {toolPills.map((tool, idx) => {
+          const isExternal = tool.url.startsWith("http");
+          return isExternal ? (
+            <a href={tool.url} target="_blank" rel="noopener noreferrer" key={idx} className="bg-[#17a2b8] hover:bg-[#138496] text-white text-[13px] px-3 py-1 rounded-full shadow-sm transition-colors">
+              {tool.name}
+            </a>
+          ) : (
+            <Link href={tool.url} key={idx} className="bg-[#17a2b8] hover:bg-[#138496] text-white text-[13px] px-3 py-1 rounded-full shadow-sm transition-colors">
+              {tool.name}
+            </Link>
+          );
+        })}
       </div>
 
       {/* Live Now Ticker Section */}

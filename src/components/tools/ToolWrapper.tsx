@@ -5,7 +5,6 @@ import AgeCalculator from './AgeCalculator';
 import ImageCompressor from './ImageCompressor';
 import SignatureResizer from './SignatureResizer';
 import ImageResizer from './ImageResizer';
-import ImageToPDF from './ImageToPDF';
 import AddNameDate from './AddNameDate';
 import PhotoSignJoiner from './PhotoSignJoiner';
 import FormatConverter from './FormatConverter';
@@ -13,8 +12,6 @@ import FormatConverter from './FormatConverter';
 function ToolLogic({ toolId }: { toolId: string }) {
   const searchParams = useSearchParams();
   const target = searchParams.get('target');
-
-  // Next.js might pass toolId with the query string if improperly linked
   const cleanToolId = toolId.split('%3F')[0].split('?')[0];
 
   switch (cleanToolId) {
@@ -22,11 +19,10 @@ function ToolLogic({ toolId }: { toolId: string }) {
     case 'compressor': return <ImageCompressor defaultTarget={target ? parseInt(target) : 50} />;
     case 'signature-resizer': return <SignatureResizer />;
     case 'image-resizer': return <ImageResizer />;
-    case 'image-to-pdf': return <ImageToPDF />;
     case 'add-name-date': return <AddNameDate />;
     case 'photo-sign-joiner': return <PhotoSignJoiner />;
     case 'format-converter': return <FormatConverter />;
-    default: return <div className="text-center p-12 text-red-500">Tool not found: "{cleanToolId}" (Original: {toolId})</div>;
+    default: return <div className="text-center p-12 text-red-500">Tool not found: "{cleanToolId}"</div>;
   }
 }
 
