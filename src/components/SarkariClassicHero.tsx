@@ -10,16 +10,16 @@ export default function SarkariClassicHero() {
   ];
 
   const toolPills = [
-    { name: "Signature Resizer", slug: "signature-resizer" },
-    { name: "Image Resizer", slug: "image-resizer" },
-    { name: "Image to PDF", slug: "image-to-pdf" },
-    { name: "Add Name & Date", slug: "add-name-date" },
-    { name: "Photo Sign Joiner", slug: "photo-sign-joiner" },
-    { name: "Age Calculator", slug: "age-calculator" },
-    { name: "PNG to JPG to Webp", slug: "format-converter" },
-    { name: "20kb Photo", slug: "compressor?target=20" },
-    { name: "50kb Photo", slug: "compressor?target=50" },
-    { name: "Photo in KB", slug: "compressor" }
+    { name: "Signature Resizer", url: "https://image11zon.com/signature-resizer" },
+    { name: "Image Resizer", url: "https://imageresizer.com/" },
+    { name: "Image to PDF", url: "https://www.ilovepdf.com/jpg_to_pdf" },
+    { name: "Add Name & Date", url: "https://tools.sarkariresult.com/name-date-on-photo" },
+    { name: "Photo Sign Joiner", url: "https://tools.sarkariresult.com/photo-sign-joiner" },
+    { name: "Age Calculator", url: "https://www.calculator.net/age-calculator.html" },
+    { name: "PNG to JPG to Webp", url: "https://www.iloveimg.com/convert-to-jpg" },
+    { name: "20kb Photo", url: "https://image11zon.com/compress-image-to-20kb" },
+    { name: "50kb Photo", url: "https://image11zon.com/compress-image-to-50kb" },
+    { name: "Photo in KB", url: "https://image11zon.com/compress-image" }
   ];
 
   const liveLinks = [
@@ -71,9 +71,9 @@ export default function SarkariClassicHero() {
       {/* Teal Tool Pills */}
       <div className="flex flex-wrap justify-center gap-2 mb-6 w-full">
         {toolPills.map((tool, idx) => (
-          <Link href={`/tools/${tool.slug}`} key={idx} className="bg-[#17a2b8] hover:bg-[#138496] text-white text-[13px] px-3 py-1 rounded-full shadow-sm transition-colors">
+          <a href={tool.url} target="_blank" rel="noopener noreferrer" key={idx} className="bg-[#17a2b8] hover:bg-[#138496] text-white text-[13px] px-3 py-1 rounded-full shadow-sm transition-colors">
             {tool.name}
-          </Link>
+          </a>
         ))}
       </div>
 
