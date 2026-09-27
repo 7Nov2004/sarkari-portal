@@ -9,19 +9,6 @@ export default function SarkariClassicHero() {
     { name: "सरकारी काम", link: "/category/SARKARI_KAAM" },
   ];
 
-  const toolPills = [
-    { name: "Signature Resizer", url: "/tools/signature-resizer" },
-    { name: "Image Resizer", url: "/tools/image-resizer" },
-    { name: "Image to PDF", url: "https://www.ilovepdf.com/jpg_to_pdf" },
-    { name: "Add Name & Date", url: "/tools/add-name-date" },
-    { name: "Photo Sign Joiner", url: "/tools/photo-sign-joiner" },
-    { name: "Age Calculator", url: "/tools/age-calculator" },
-    { name: "PNG to JPG to Webp", url: "/tools/format-converter" },
-    { name: "20kb Photo", url: "/tools/compressor?target=20" },
-    { name: "50kb Photo", url: "/tools/compressor?target=50" },
-    { name: "Photo in KB", url: "/tools/compressor" }
-  ];
-
   const liveLinks = [
     { title: "MPESB Teacher counselling", slug: "mpesb-teacher-counselling" },
     { title: "Bihar STET 2026 Online", slug: "bihar-stet-2026-online" },
@@ -68,21 +55,7 @@ export default function SarkariClassicHero() {
         ))}
       </div>
 
-      {/* Teal Tool Pills */}
-      <div className="flex flex-wrap justify-center gap-2 mb-6 w-full">
-        {toolPills.map((tool, idx) => {
-          const isExternal = tool.url.startsWith("http");
-          return isExternal ? (
-            <a href={tool.url} target="_blank" rel="noopener noreferrer" key={idx} className="bg-[#17a2b8] hover:bg-[#138496] text-white text-[13px] px-3 py-1 rounded-full shadow-sm transition-colors">
-              {tool.name}
-            </a>
-          ) : (
-            <Link href={tool.url} key={idx} className="bg-[#17a2b8] hover:bg-[#138496] text-white text-[13px] px-3 py-1 rounded-full shadow-sm transition-colors">
-              {tool.name}
-            </Link>
-          );
-        })}
-      </div>
+      
 
       {/* Live Now Ticker Section */}
       <div className="w-full flex flex-col items-center mb-8">
