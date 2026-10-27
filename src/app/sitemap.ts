@@ -68,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       where: { published: true },
       select: { slug: true, updatedAt: true },
       orderBy: { updatedAt: 'desc' },
-      take: 1000,
+      take: 5000,
     });
 
     postRoutes = posts.map((post) => ({

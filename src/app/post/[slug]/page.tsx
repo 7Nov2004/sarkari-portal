@@ -359,9 +359,10 @@ export default async function PostDetail({
                   <h2 className="text-xl font-bold text-gray-900 border-b pb-2 mb-4">
                     संपूर्ण विवरण / About this Update
                   </h2>
-                  <p className="whitespace-pre-line text-base text-gray-700">
-                    {post.content.replace(/<!--[\s\S]*?-->/g, '')}
-                  </p>
+                  <div
+                    className="text-base text-gray-700"
+                    dangerouslySetInnerHTML={{ __html: post.content.replace(/<!--[\s\S]*?-->/g, '') }}
+                  />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
